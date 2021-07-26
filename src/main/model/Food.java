@@ -37,6 +37,11 @@ public class Food {
         return isPassedExpDate;
     }
 
+    //EFFECTS: return storage condition
+    public String getStorageCond() {
+        return storageCond;
+    }
+
     // MODIFIED: this
     // EFFECTS: if DaysLeft is > 0
     //              - reduce DaysLeft by one

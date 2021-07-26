@@ -50,8 +50,10 @@ public class FoodManagerApp {
             } else if (commend == 3) {
                 doRemove();
             } else if (commend == 4) {
-                doRecordDays();
+                doSearch();
             } else if (commend == 5) {
+                doRecordDays();
+            } else if (commend == 6) {
                 keepGoing = false;
             } else {
                 System.out.println("Please enter a valid number.");
@@ -65,8 +67,9 @@ public class FoodManagerApp {
         System.out.println("\t1 -> View stored food");
         System.out.println("\t2 -> Store food");
         System.out.println("\t3 -> Remove food");
-        System.out.println("\t4 -> Update all food by one day");
-        System.out.println("\t5 -> Quit");
+        System.out.println("\t4 -> Search food");
+        System.out.println("\t5 -> Update all food by one day");
+        System.out.println("\t6 -> Quit");
     }
 
     // MODIFIES: this
@@ -81,7 +84,7 @@ public class FoodManagerApp {
                 System.out.println(f);
             }
         } else if (commend == 2) {
-            doSearch();
+            doFilterByLeftDays();
         } else if (commend == 3) {
             processMainMenu();
         } else {
@@ -98,7 +101,7 @@ public class FoodManagerApp {
     }
 
     // EFFECTS: print all food with given days left
-    private void doSearch() {
+    private void doFilterByLeftDays() {
         System.out.println("Please enter the number of days left");
         int commend = input.nextInt();
 
@@ -123,7 +126,7 @@ public class FoodManagerApp {
         int daysLeft = input.nextInt();
 
         if (price < 0 || daysLeft < 0) {
-            System.out.println("Note: Both of price and number of days cannot be negative ");
+            System.out.println("Failed: Both of price and number of days cannot be negative");
         } else {
             Food food = new Food(name, price, storageCond, daysLeft);
             storage.storeFood(food);
@@ -141,6 +144,24 @@ public class FoodManagerApp {
 
         if (isNameExist) {
             storage.removeFood(storage.getFoundFood());
+        } else {
+            System.out.println("The food is not found, check the name again");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: search and display the food
+    private void doSearch() {
+        System.out.println("Please enter the exact name of the food");
+        String name = input.next();
+
+        boolean isNameExist = storage.findFoodByName(name);
+
+        if (isNameExist) {
+            Food foundFood = storage.getFoundFood();
+            System.out.println("\nName: " + foundFood.getName() + "\nPrice: " + foundFood.getPrice()
+                    + "\nDays Left: " + foundFood.getDaysLeft()
+                    + "\nStorage Condition: " + foundFood.getStorageCond());
         } else {
             System.out.println("The food is not found, check the name again");
         }
