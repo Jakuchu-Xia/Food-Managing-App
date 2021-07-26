@@ -10,7 +10,7 @@ public class FoodTest {
 
     @BeforeEach
     public void runBefore() {
-        food = new Food("Apple", 2.99, "room temperature", 1);
+        food = new Food("Apple", 2.99, "room_temperature", 1);
     }
 
     @Test
@@ -26,5 +26,10 @@ public class FoodTest {
         food.reduceDaysLeftByOne();
 
         assertTrue(food.getIsPassedExpDate());
+    }
+
+    @Test
+    public void testGetStorageCond() {
+        assertEquals("room_temperature", food.getStorageCond());
     }
 }

@@ -26,7 +26,8 @@ Users of the app can be people who are busy and don't have much of a food budget
 
 - As a user, I want to be able to add multiple food to food storage.
 - As a user, I want to be able to view the list of food in food storage.
+- As a user, I want to be able to divide and view food list by different filters.
 - As a user, I want to be able to view the details of the given food.
-- As a user, I want to be able to remove the food by given amount from the food storage.
-- As a user, I want to be able to divide and view food by different information.
+- As a user, I want to be able to remove the food from the food storage.
+- As a user, I want to be able to update the days left of all food every day.
 
