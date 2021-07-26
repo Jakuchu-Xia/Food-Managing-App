@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -95,10 +96,26 @@ class FoodStorageTest {
 
         assertTrue(storage.findFoodByName("Apple"));
         assertEquals(food, storage.getFoundFood());
+
+        Food food2 = new Food("Broccoli", 1.99, "refrigerated", 0);
+        storage.storeFood(food2);
+
+        assertTrue(storage.findFoodByName("Broccoli"));
+        assertEquals(food2, storage.getFoundFood());
     }
 
     @Test
     public void testFindFoodByNameFalse() {
         assertFalse(storage.findFoodByName("Apple"));
+    }
+
+    @Test
+    public void testGetFoodList() {
+        storage.storeFood(food);
+
+        LinkedList<Food> foodList = new LinkedList<>();
+        foodList.add(food);
+
+        assertEquals(foodList, storage.getFoodList());
     }
 }

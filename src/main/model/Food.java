@@ -27,11 +27,6 @@ public class Food {
         return price;
     }
 
-    // EFFECTS: return storage condition
-    public String getStorageCond() {
-        return storageCond;
-    }
-
     // EFFECTS: return days left
     public int getDaysLeft() {
         return daysLeft;
