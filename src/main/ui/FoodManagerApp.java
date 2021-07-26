@@ -16,8 +16,8 @@ public class FoodManagerApp {
         runFoodManagerApp();
     }
 
-    // MODIFIES
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: initialize the storage and process the main menu
     public void runFoodManagerApp() {
 
         init();
@@ -26,12 +26,15 @@ public class FoodManagerApp {
 
     }
 
-    //
+    // MODIFIES: this
+    // EFFECTS: initialize storage
     private void init() {
         storage = new FoodStorage();
         input = new Scanner(System.in);
     }
 
+    // MODIFIES: this
+    // EFFECTS: process commend in main menu
     private void processMainMenu() {
         boolean keepGoing = true;
         int commend;
@@ -56,15 +59,18 @@ public class FoodManagerApp {
         }
     }
 
+    // EFFECTS: display menu of options to user
     private void displayMainMenu() {
         System.out.println("\nSelect the following:");
         System.out.println("\t1 -> View stored food");
         System.out.println("\t2 -> Store food");
         System.out.println("\t3 -> Remove food");
-        System.out.println("\t4 -> View and record days that have passed");
+        System.out.println("\t4 -> Update all food by one day");
         System.out.println("\t5 -> Quit");
     }
 
+    // MODIFIES: this
+    // EFFECTS: process commend in select filter page
     private void processSelectFilter() {
         displaySelectFilter();
 
@@ -83,6 +89,7 @@ public class FoodManagerApp {
         }
     }
 
+    // EFFECTS: display menu of options to user
     private void displaySelectFilter() {
         System.out.println("\nSelect the following:");
         System.out.println("\t1 -> Show all");
@@ -90,7 +97,7 @@ public class FoodManagerApp {
         System.out.println("\t3 -> Back");
     }
 
-    //
+    // EFFECTS: print all food with given days left
     private void doSearch() {
         System.out.println("Please enter the number of days left");
         int commend = input.nextInt();
@@ -100,6 +107,8 @@ public class FoodManagerApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: store the given food to storage
     private void doStore() {
         System.out.println("Food name?");
         String name = input.next();
@@ -122,11 +131,14 @@ public class FoodManagerApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: remove the given food from storage
     private void doRemove() {
         System.out.println("Please enter the exact name of the food");
         String name = input.next();
 
         boolean isNameExist = storage.findFoodByName(name);
+
         if (isNameExist) {
             storage.removeFood(storage.getFoundFood());
         } else {
@@ -134,6 +146,8 @@ public class FoodManagerApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: Reduce days left of all food
     private void doRecordDays() {
         for (Food f : storage.getFoodList()) {
             f.reduceDaysLeftByOne();

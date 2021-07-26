@@ -28,26 +28,27 @@ public class FoodStorage {
 
     // EFFECTS: return the list of name of all the food
     public List<String> displayAllFood() {
-        ArrayList<String> foodList = new ArrayList<String>();
+        ArrayList<String> displayFoodList = new ArrayList<String>();
 
         for (Food f : this.foodList) {
-            foodList.add(f.getName());
+            displayFoodList.add(f.getName());
         }
 
-        return foodList;
+        return displayFoodList;
     }
 
+    // REQUIRES: days >= 0
     // EFFECTS: return the list of name of all the food by given days left
     public List<String> displayFoodByDaysLeft(int days) {
-        ArrayList<String> foodList = new ArrayList<String>();
+        ArrayList<String> displayFoodList = new ArrayList<String>();
 
         for (Food f: this.foodList) {
             if (f.getDaysLeft() == days) {
-                foodList.add(f.getName());
+                displayFoodList.add(f.getName());
             }
         }
 
-        return foodList;
+        return displayFoodList;
     }
 
     // EFFECTS: sum up the total price of the food and return
@@ -62,7 +63,7 @@ public class FoodStorage {
     }
 
 
-    // EFFECTS:
+    // EFFECTS: return the number of elements in foodList
     public int totalAmount() {
         int amount = 0;
 
@@ -88,7 +89,7 @@ public class FoodStorage {
     // EFFECTS: return true and assign the given name to found name if the food is found, false if not found
     public boolean findFoodByName(String name) {
         for (Food f : foodList) {
-            if (f.getName() == name) {
+            if (f.getName().equals(name)) {
                 foundFood = f;
                 return true;
             }
@@ -96,7 +97,7 @@ public class FoodStorage {
         return false;
     }
 
-    // EFFECTS: return storage
+    // EFFECTS: return foodList
     public LinkedList<Food> getFoodList() {
         return foodList;
     }

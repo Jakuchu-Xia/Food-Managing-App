@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FoodStorageTest {
-    FoodStorage storage;
-    Food food;
+    private FoodStorage storage;
+    private Food food;
 
     @BeforeEach
     public void runBefore() {
@@ -90,7 +90,7 @@ class FoodStorageTest {
     }
 
     @Test
-    public void testFoodByNameTrue() {
+    public void testFindFoodByNameTrue() {
         storage.storeFood(food);
 
         assertTrue(storage.findFoodByName("Apple"));
@@ -98,7 +98,7 @@ class FoodStorageTest {
     }
 
     @Test
-    public void testFoodByNameFalse() {
+    public void testFindFoodByNameFalse() {
         assertFalse(storage.findFoodByName("Apple"));
     }
 }
