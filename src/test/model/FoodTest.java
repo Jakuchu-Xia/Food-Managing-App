@@ -10,19 +10,21 @@ public class FoodTest {
 
     @BeforeEach
     public void runBefore() {
-        food = new Food("Apple", 2.99, "room temperature", 1, true);
+        food = new Food("Apple", 2.99, "room temperature", 1);
     }
 
     @Test
-    public void testReduceDaysLeftByOneTrue() {
-        assertTrue(food.reduceDaysLeftByOne());
+    public void testReduceDaysLeftByOneNotZero() {
+        food.reduceDaysLeftByOne();
+
         assertEquals(0, food.getDaysLeft());
     }
 
     @Test
-    public void testReduceDaysLeftByOneFalse() {
-        Food food2 = new Food("Broccoli", 1.99, "refrigerated", 0, true);
+    public void testReduceDaysLeftByOneZero() {
+        food.reduceDaysLeftByOne();
+        food.reduceDaysLeftByOne();
 
-         assertFalse(food2.reduceDaysLeftByOne());
+        assertTrue(food.getIsPassedExpDate());
     }
 }

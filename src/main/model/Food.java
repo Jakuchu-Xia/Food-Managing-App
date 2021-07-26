@@ -6,16 +6,15 @@ public class Food {
     private double price;
     private String storageCond;
     private int daysLeft;
-    private boolean isInStock;
+    private boolean isPassedExpDate = false;
 
     // REQUIRES: price >= 0, daysLeft >= 0
     // EFFECTS: construct a food by given parameter
-    public Food(String name, double price, String storageCond, int daysLeft, boolean isInStock) {
+    public Food(String name, double price, String storageCond, int daysLeft) {
         this.name = name;
         this.price = price;
         this.storageCond = storageCond;
         this.daysLeft = daysLeft;
-        this.isInStock = isInStock;
     }
 
     //EFFECTS: return name
@@ -38,22 +37,20 @@ public class Food {
         return daysLeft;
     }
 
-    // EFFECTS: return true if food is in stock
-    public boolean getIsInStock() {
-        return isInStock;
+    //EFFECTS: return isPassedExpDate
+    public boolean getIsPassedExpDate() {
+        return isPassedExpDate;
     }
 
     // MODIFIED: this
     // EFFECTS: if DaysLeft is > 0
     //              - reduce DaysLeft by one
-    //              - return true
-    //          otherwise, return false
-    public boolean reduceDaysLeftByOne() {
+    //          otherwise, set isPassedExpDate to true
+    public void reduceDaysLeftByOne() {
         if (daysLeft > 0) {
             daysLeft -= 1;
-            return true;
         } else {
-            return false;
+            isPassedExpDate = true;
         }
     }
 }
