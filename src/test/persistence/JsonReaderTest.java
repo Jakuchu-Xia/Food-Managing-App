@@ -23,7 +23,7 @@ public class JsonReaderTest extends JsonTest{
     }
 
     @Test
-    void testReaderEmptyWorkRoom() {
+    void testReaderEmptyFoodStorage() {
         JsonReader reader = new JsonReader("./data/testReaderEmptyFoodStorage.json");
         try {
             FoodStorage fs = reader.read();
@@ -34,7 +34,7 @@ public class JsonReaderTest extends JsonTest{
     }
 
     @Test
-    void testReaderGeneralWorkRoom() {
+    void testReaderGeneralFoodStorage() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralFoodStorage.json");
         try {
             FoodStorage wr = reader.read();

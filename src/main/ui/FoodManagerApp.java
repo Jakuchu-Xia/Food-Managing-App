@@ -200,7 +200,7 @@ public class FoodManagerApp {
         System.out.println("All food states have been updated");
     }
 
-    // EFFECTS: saves the workroom to file
+    // EFFECTS: saves the food storage to file
     private void saveFoodStorage() {
         try {
             jsonWriter.open();
@@ -213,7 +213,7 @@ public class FoodManagerApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
+    // EFFECTS: loads food storage from file
     private void loadFoodStorage() {
         try {
             storage = jsonReader.read();
