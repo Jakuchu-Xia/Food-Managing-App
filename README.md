@@ -22,7 +22,7 @@ Finally, the app can calculate food costs for the month.
 
 Users of the app can be people who are busy and don't have much of a food budget.
 
-##User Stories
+## User Stories
 
 - As a user, I want to be able to add multiple food to food storage.
 - As a user, I want to be able to view the list of food in food storage.
