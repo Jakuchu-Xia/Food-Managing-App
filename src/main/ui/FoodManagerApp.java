@@ -53,25 +53,33 @@ public class FoodManagerApp {
             displayMainMenu();
             commend = input.nextInt();
 
-            if (commend == 1) {
-                processSelectFilter();
-            } else if (commend == 2) {
-                doStore();
-            } else if (commend == 3) {
-                doRemove();
-            } else if (commend == 4) {
-                doSearch();
-            } else if (commend == 5) {
-                doRecordDays();
-            } else if (commend == 6) {
-                saveFoodStorage();
-            } else if (commend == 7) {
-                loadFoodStorage();
-            } else if (commend == 8) {
+            checkCommand(commend);
+
+            if (commend == 0) {
                 keepGoing = false;
             } else {
                 System.out.println("Please enter a valid number.");
             }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: process part of the commend in main menu
+    private void checkCommand(int commend) {
+        if (commend == 1) {
+            processSelectFilter();
+        } else if (commend == 2) {
+            doStore();
+        } else if (commend == 3) {
+            doRemove();
+        } else if (commend == 4) {
+            doSearch();
+        } else if (commend == 5) {
+            doRecordDays();
+        } else if (commend == 6) {
+            saveFoodStorage();
+        } else if (commend == 7) {
+            loadFoodStorage();
         }
     }
 
@@ -85,7 +93,7 @@ public class FoodManagerApp {
         System.out.println("\t5 -> Update all food by one day");
         System.out.println("\t6 -> save storage");
         System.out.println("\t7 -> load storage");
-        System.out.println("\t8 -> Quit");
+        System.out.println("\t0 -> Quit");
     }
 
     // MODIFIES: this
