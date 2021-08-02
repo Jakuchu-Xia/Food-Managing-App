@@ -1,9 +1,10 @@
 package model;
 
 import org.json.JSONObject;
+import persistence.Writable;
 
 // Represent a food having its name, price (in dollars), storage condition, days left etc.
-public class Food {
+public class Food implements Writable {
     private String name;
     private double price;
     private String storageCond;
@@ -34,12 +35,12 @@ public class Food {
         return daysLeft;
     }
 
-    //EFFECTS: return isPassedExpDate
+    // EFFECTS: return isPassedExpDate
     public boolean getIsPassedExpDate() {
         return isPassedExpDate;
     }
 
-    //EFFECTS: return storage condition
+    // EFFECTS: return storage condition
     public String getStorageCond() {
         return storageCond;
     }
@@ -56,6 +57,7 @@ public class Food {
         }
     }
 
+    @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);

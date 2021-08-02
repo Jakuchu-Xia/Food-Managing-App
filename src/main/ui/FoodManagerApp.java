@@ -20,7 +20,7 @@ public class FoodManagerApp {
     private JsonReader jsonReader;
 
     // EFFECTS: run the food manager application
-    public FoodManagerApp() {
+    public FoodManagerApp() throws FileNotFoundException {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         runFoodManagerApp();
@@ -53,10 +53,10 @@ public class FoodManagerApp {
             displayMainMenu();
             commend = input.nextInt();
 
-            checkCommand(commend);
-
             if (commend == 0) {
                 keepGoing = false;
+            } else if (commend >= 0 && commend <= 7) {
+                checkCommand(commend);
             } else {
                 System.out.println("Please enter a valid number.");
             }

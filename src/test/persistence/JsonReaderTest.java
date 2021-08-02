@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class JsonReaderTest {
+public class JsonReaderTest extends JsonTest{
     @Test
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
@@ -45,12 +45,5 @@ public class JsonReaderTest {
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
-    }
-
-    public void checkFood(String name, double price, String storageCond, int daysLeft, Food food) {
-        assertEquals(name, food.getName());
-        assertEquals(price, food.getPrice());
-        assertEquals(storageCond, food.getStorageCond());
-        assertEquals(daysLeft, food.getDaysLeft());
     }
 }

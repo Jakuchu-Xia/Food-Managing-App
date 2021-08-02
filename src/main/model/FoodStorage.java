@@ -2,13 +2,14 @@ package model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 // Represent an list of Food
-public class FoodStorage {
+public class FoodStorage implements Writable {
     private LinkedList<Food> foodList;
     private Food foundFood;
 
@@ -110,12 +111,14 @@ public class FoodStorage {
         return foundFood;
     }
 
+    @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("foods", foodToJson());
+        json.put("food list", foodToJson());
         return json;
     }
 
+    //EFFECTS: put all food into a json array and return it
     private JSONArray foodToJson() {
         JSONArray jsonArray = new JSONArray();
 

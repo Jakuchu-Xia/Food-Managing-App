@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class JsonWriterTest {
+public class JsonWriterTest extends JsonTest{
 
     @Test
     void testWriterInvalidFile() {
@@ -62,12 +62,5 @@ public class JsonWriterTest {
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
-    }
-
-    public void checkFood(String name, double price, String storageCond, int daysLeft, Food food) {
-        assertEquals(name, food.getName());
-        assertEquals(price, food.getPrice());
-        assertEquals(storageCond, food.getStorageCond());
-        assertEquals(daysLeft, food.getDaysLeft());
     }
 }
