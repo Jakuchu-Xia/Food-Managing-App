@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // Represent a food having its name, price (in dollars), storage condition, days left etc.
 public class Food {
     private String name;
@@ -53,4 +55,14 @@ public class Food {
             isPassedExpDate = true;
         }
     }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("price", price);
+        json.put("storageCond", storageCond);
+        json.put("daysLeft", daysLeft);
+        return json;
+    }
 }
+

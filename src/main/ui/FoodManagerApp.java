@@ -3,16 +3,26 @@ package ui;
 
 import model.Food;
 import model.FoodStorage;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 // Food Manager application
 public class FoodManagerApp {
+    private static final String JSON_STORE = "./data/foodStorage.json";
     private FoodStorage storage;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: run the food manager application
     public FoodManagerApp() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runFoodManagerApp();
     }
 
@@ -54,6 +64,10 @@ public class FoodManagerApp {
             } else if (commend == 5) {
                 doRecordDays();
             } else if (commend == 6) {
+                saveFoodStorage();
+            } else if (commend == 7) {
+                loadFoodStorage();
+            } else if (commend == 8) {
                 keepGoing = false;
             } else {
                 System.out.println("Please enter a valid number.");
@@ -69,7 +83,9 @@ public class FoodManagerApp {
         System.out.println("\t3 -> Remove food");
         System.out.println("\t4 -> Search food");
         System.out.println("\t5 -> Update all food by one day");
-        System.out.println("\t6 -> Quit");
+        System.out.println("\t6 -> save storage");
+        System.out.println("\t7 -> load storage");
+        System.out.println("\t8 -> Quit");
     }
 
     // MODIFIES: this
@@ -174,5 +190,28 @@ public class FoodManagerApp {
             f.reduceDaysLeftByOne();
         }
         System.out.println("All food states have been updated");
+    }
+
+    // EFFECTS: saves the workroom to file
+    private void saveFoodStorage() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(storage);
+            jsonWriter.close();
+            System.out.println("Saved your food storage to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadFoodStorage() {
+        try {
+            storage = jsonReader.read();
+            System.out.println("Loaded your food storage from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

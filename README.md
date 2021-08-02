@@ -30,4 +30,6 @@ Users of the app can be people who are busy and don't have much of a food budget
 - As a user, I want to be able to view the details of the given food.
 - As a user, I want to be able to remove the food from the food storage.
 - As a user, I want to be able to update the days left of all food every day.
+- As a user, I want to be able to save my food library to file. 
+- As a user, I want to be able to be able to load my food library from file.
 

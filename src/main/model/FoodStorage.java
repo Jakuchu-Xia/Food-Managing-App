@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -105,5 +108,21 @@ public class FoodStorage {
     // EFFECTS: return found food
     public Food getFoundFood() {
         return foundFood;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("foods", foodToJson());
+        return json;
+    }
+
+    private JSONArray foodToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Food f : foodList) {
+            jsonArray.put(f.toJson());
+        }
+
+        return jsonArray;
     }
 }

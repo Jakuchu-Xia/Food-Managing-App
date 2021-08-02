@@ -1,0 +1,14 @@
+{"foods": [
+  {
+    "price": 5,
+    "name": "apple",
+    "storageCond": "roomtemp",
+    "daysLeft": 3
+  },
+  {
+    "price": 3,
+    "name": "pear",
+    "storageCond": "none",
+    "daysLeft": 1
+  }
+]}
