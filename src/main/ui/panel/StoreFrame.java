@@ -2,6 +2,7 @@ package ui.panel;
 
 import model.Food;
 import model.FoodStorage;
+import ui.SoundEffect;
 
 import javax.swing.*;
 import java.awt.*;
@@ -176,12 +177,16 @@ public class StoreFrame extends JFrame {
         }
 
         private void doStore(String name, Double price, String storageCond, int daysLeft) {
+            SoundEffect sound = new SoundEffect();
+
             if (price < 0 || daysLeft < 0) {
                 System.out.println("Failed: Both of price and number of days cannot be negative");
+                sound.getSoundFail().play();
             } else {
                 Food food = new Food(name, price, storageCond, daysLeft);
                 foodStorage.storeFood(food);
                 System.out.println("The food has been successfully stored");
+                sound.getSoundSuccess().play();
             }
         }
     }

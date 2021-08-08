@@ -1,7 +1,7 @@
 package ui.panel;
 
-import model.Food;
 import model.FoodStorage;
+import ui.SoundEffect;
 
 import javax.swing.*;
 import java.awt.*;
@@ -99,12 +99,18 @@ public class RemoveFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = textFieldName.getText();
+            SoundEffect sound = new SoundEffect();
+
             boolean isNameExist = foodStorage.findFoodByName(name);
 
             if (isNameExist) {
                 foodStorage.removeFood(foodStorage.getFoundFood());
+                sound.getSoundSuccess().play();
+                setVisible(false);
             } else {
                 System.out.println("The food is not found, check the name again");
+                sound.getSoundFail().play();
+                setVisible(false);
             }
         }
     }

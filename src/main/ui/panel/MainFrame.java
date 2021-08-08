@@ -3,6 +3,7 @@ package ui.panel;
 import model.FoodStorage;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.SoundEffect;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +24,8 @@ public class MainFrame extends JFrame {
     private JsonReader jsonReader;
 
     private JLabel label = new JLabel();
+
+    private SoundEffect sound = new SoundEffect();
 
     public MainFrame(String name) {
         super(name);
@@ -104,6 +107,7 @@ public class MainFrame extends JFrame {
                 jsonWriter.write(foodStorage);
                 jsonWriter.close();
                 System.out.println("Saved your food storage to " + JSON_STORE);
+                sound.getSoundSuccess().play();
             } catch (FileNotFoundException fnfe) {
                 System.out.println("Unable to write to file: " + JSON_STORE);
             }
@@ -117,6 +121,7 @@ public class MainFrame extends JFrame {
             try {
                 foodStorage = jsonReader.read();
                 System.out.println("Loaded your food storage from " + JSON_STORE);
+                sound.getSoundSuccess().play();
             } catch (IOException ioe) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
             }
