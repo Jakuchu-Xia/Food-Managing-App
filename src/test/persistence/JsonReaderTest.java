@@ -37,8 +37,8 @@ public class JsonReaderTest extends JsonTest{
     void testReaderGeneralFoodStorage() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralFoodStorage.json");
         try {
-            FoodStorage wr = reader.read();
-            List<Food> foodList = wr.getFoodList();
+            FoodStorage fs = reader.read();
+            List<Food> foodList = fs.getFoodList();
             assertEquals(2, foodList.size());
             checkFood("apple", 5, "roomtemp", 3, foodList.get(0));
             checkFood("pear", 3, "none", 1, foodList.get(1));

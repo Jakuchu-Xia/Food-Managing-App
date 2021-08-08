@@ -15,7 +15,7 @@ public class JsonWriterTest extends JsonTest{
     @Test
     void testWriterInvalidFile() {
         try {
-            FoodStorage wr = new FoodStorage();
+            FoodStorage fs = new FoodStorage();
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
@@ -27,15 +27,15 @@ public class JsonWriterTest extends JsonTest{
     @Test
     void testWriterEmptyFoodStorage() {
         try {
-            FoodStorage wr = new FoodStorage();
+            FoodStorage fs = new FoodStorage();
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyFoodStorage.json");
             writer.open();
-            writer.write(wr);
+            writer.write(fs);
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterEmptyFoodStorage.json");
-            wr = reader.read();
-            assertEquals(0, wr.getFoodList().size());
+            fs = reader.read();
+            assertEquals(0, fs.getFoodList().size());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
@@ -44,17 +44,17 @@ public class JsonWriterTest extends JsonTest{
     @Test
     void testWriterGeneralFoodStorage() {
         try {
-            FoodStorage wr = new FoodStorage();
-            wr.storeFood(new Food("apple", 5, "roomtemp", 3));
-            wr.storeFood(new Food("pear", 3, "none", 1));
+            FoodStorage fs = new FoodStorage();
+            fs.storeFood(new Food("apple", 5, "roomtemp", 3));
+            fs.storeFood(new Food("pear", 3, "none", 1));
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralFoodStorage.json");
             writer.open();
-            writer.write(wr);
+            writer.write(fs);
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterGeneralFoodStorage.json");
-            wr = reader.read();
-            List<Food> foodList = wr.getFoodList();
+            fs = reader.read();
+            List<Food> foodList = fs.getFoodList();
             assertEquals(2, foodList.size());
             checkFood("apple", 5, "roomtemp", 3, foodList.get(0));
             checkFood("pear", 3, "none", 1, foodList.get(1));

@@ -1,6 +1,14 @@
-{"food list": [{
-    "price": 123,
-    "name": "qwe",
-    "storageCond": "123",
-    "daysLeft": 123
-}]}
+{"food list": [
+    {
+        "price": 22,
+        "name": "22",
+        "storageCond": "22",
+        "daysLeft": 22
+    },
+    {
+        "price": 33,
+        "name": "33",
+        "storageCond": "33",
+        "daysLeft": 33
+    }
+]}
