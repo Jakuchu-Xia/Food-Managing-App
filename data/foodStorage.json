@@ -3,18 +3,12 @@
         "price": 22,
         "name": "22",
         "storageCond": "22",
-        "daysLeft": 22
-    },
-    {
-        "price": 12,
-        "name": "apple",
-        "storageCond": "na",
-        "daysLeft": 12
+        "daysLeft": 20
     },
     {
         "price": 11,
-        "name": "qwe",
+        "name": "asd",
         "storageCond": "11",
-        "daysLeft": 123
+        "daysLeft": 9
     }
 ]}

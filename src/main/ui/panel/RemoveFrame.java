@@ -25,7 +25,7 @@ public class RemoveFrame extends JFrame {
     private SoundEffect sound;
 
     // MODIFIES: this
-    // EFFECTS: create a remove frame with fields and graphics initialized
+    // EFFECTS: create and initialize a remove frame
     public RemoveFrame(String name, FoodStorage foodStorage) {
         super(name);
         this.foodStorage = foodStorage;
@@ -40,11 +40,8 @@ public class RemoveFrame extends JFrame {
     private void initializeFields() {
         layout = new SpringLayout();
         contentPane = this.getContentPane();
-
         labelName = new JLabel("Remove food:");
-
         textFieldName = new JTextField(16);
-
         confirmButton = new JButton("Confirm");
     }
 

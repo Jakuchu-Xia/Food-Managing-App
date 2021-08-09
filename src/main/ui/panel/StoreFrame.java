@@ -34,7 +34,7 @@ public class StoreFrame extends JFrame {
     private SoundEffect sound;
 
     // MODIFIES: this
-    // EFFECTS: create a store frame with fields and graphics initialized
+    // EFFECTS: create and initialize a store frame
     public StoreFrame(String name, FoodStorage foodStorage) {
         super(name);
         this.foodStorage = foodStorage;

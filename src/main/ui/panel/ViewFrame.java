@@ -19,12 +19,12 @@ public class ViewFrame extends JFrame {
     private JScrollPane scroll;
 
     // MODIFIES: this
-    // EFFECTS: create a view frame with fields and graphics initialized
+    // EFFECTS: create and initialize a view frame
     public ViewFrame(String name, FoodStorage foodStorage) {
         super(name);
+        this.foodStorage = foodStorage;
         initializeFields();
         initializeGraphics();
-        this.foodStorage = foodStorage;
     }
 
     // MODIFIES: this

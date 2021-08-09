@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
     private SoundEffect sound;
 
     // MODIFIES: this
-    // EFFECTS: create a main frame with fields and graphics initialized
+    // EFFECTS: create and initialize a main frame
     public MainFrame(String name) {
         super(name);
         initializeFields();
@@ -73,11 +73,12 @@ public class MainFrame extends JFrame {
         add(buttonArea, BorderLayout.CENTER);
 
         createMainButtons(buttonArea, "View", new ViewToolClickHandler());
+        createMainButtons(buttonArea, "Search", new SearchToolClickHandler());
         createMainButtons(buttonArea, "Store", new StoreToolClickHandler());
         createMainButtons(buttonArea, "Remove", new RemoveToolClickHandler());
+        createMainButtons(buttonArea, "Update", new UpdateToolClickHandler());
         createMainButtons(buttonArea, "Save", new SaveToolClickHandler());
         createMainButtons(buttonArea, "Load", new LoadToolClickHandler());
-        createMainButtons(buttonArea, "Update", new UpdateToolClickHandler());
     }
 
     // MODIFIES: this
@@ -94,6 +95,15 @@ public class MainFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             new ViewFrame("View Panel", foodStorage);
+        }
+    }
+
+    // Represent a click handler for Search button
+    private class SearchToolClickHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new SearchFrame("Search Panel", foodStorage);
         }
     }
 
