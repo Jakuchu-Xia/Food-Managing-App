@@ -6,9 +6,15 @@
         "daysLeft": 22
     },
     {
-        "price": 1231,
-        "name": "123",
-        "storageCond": "123",
+        "price": 12,
+        "name": "apple",
+        "storageCond": "na",
+        "daysLeft": 12
+    },
+    {
+        "price": 11,
+        "name": "qwe",
+        "storageCond": "11",
         "daysLeft": 123
     }
 ]}

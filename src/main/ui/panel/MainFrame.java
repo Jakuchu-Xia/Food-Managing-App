@@ -3,6 +3,7 @@ package ui.panel;
 import model.FoodStorage;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.Main;
 import ui.SoundEffect;
 
 import javax.swing.*;
@@ -19,14 +20,16 @@ public class MainFrame extends JFrame {
     public static final int WIDTH = 300;
     public static final int HEIGHT = 500;
 
-    private FoodStorage foodStorage = new FoodStorage();
+    private FoodStorage foodStorage;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
     private JLabel label = new JLabel();
 
-    private SoundEffect sound = new SoundEffect();
+    private SoundEffect sound;
 
+    // MODIFIES: this
+    // EFFECTS: create a main frame with fields and graphics initialized
     public MainFrame(String name) {
         super(name);
         initializeFields();
@@ -34,9 +37,14 @@ public class MainFrame extends JFrame {
         initializeSound();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize sound
     private void initializeSound() {
+        sound = new SoundEffect();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize graphics
     private void initializeGraphics() {
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -47,13 +55,17 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize fields
     private void initializeFields() {
+        foodStorage = new FoodStorage();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-
-        label.setText("Select the following:");
+        label = new JLabel("Select the following:");
     }
 
+    // MODIFIES: this
+    // EFFECTS: create an area for buttons
     private void createButtonArea() {
         JPanel buttonArea = new JPanel();
         buttonArea.setLayout(new GridLayout(0,1));
@@ -67,21 +79,24 @@ public class MainFrame extends JFrame {
         createMainButtons(buttonArea, "Update", new UpdateToolClickHandler());
     }
 
+    // MODIFIES: this
+    // EFFECTS: create a button based on given name and listener
     private void createMainButtons(JComponent parent, String name, ActionListener listener) {
         JButton button = new JButton(name);
         parent.add(button);
         button.addActionListener(listener);
     }
 
+    // Represent a click handler for view button
     private class ViewToolClickHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             new ViewFrame("View Panel", foodStorage);
-
         }
     }
 
+    // Represent a click handler for store button
     private class StoreToolClickHandler implements ActionListener {
 
         @Override
@@ -90,6 +105,7 @@ public class MainFrame extends JFrame {
         }
     }
 
+    // Represent a click handler for remove button
     private class RemoveToolClickHandler implements ActionListener {
 
         @Override
@@ -98,6 +114,7 @@ public class MainFrame extends JFrame {
         }
     }
 
+    // Represent a click handler for save button
     private class SaveToolClickHandler implements ActionListener {
 
         @Override
@@ -114,6 +131,7 @@ public class MainFrame extends JFrame {
         }
     }
 
+    // Represent a click handler for update button
     private class UpdateToolClickHandler implements ActionListener {
 
         @Override

@@ -19,11 +19,13 @@ public class RemoveFrame extends JFrame {
     private Container contentPane;
 
     private JLabel labelName;
-
     private JTextField textFieldName;
-
     private JButton confirmButton;
 
+    private SoundEffect sound;
+
+    // MODIFIES: this
+    // EFFECTS: create a remove frame with fields and graphics initialized
     public RemoveFrame(String name, FoodStorage foodStorage) {
         super(name);
         this.foodStorage = foodStorage;
@@ -33,13 +35,21 @@ public class RemoveFrame extends JFrame {
         initializeInteraction();
     }
 
-    private void initializeInteraction() {
-        confirmButton.addActionListener(new ConfirmClickHandler());
+    // MODIFIES: this
+    // EFFECTS: initialize fields
+    private void initializeFields() {
+        layout = new SpringLayout();
+        contentPane = this.getContentPane();
+
+        labelName = new JLabel("Remove food:");
+
+        textFieldName = new JTextField(16);
+
+        confirmButton = new JButton("Confirm");
     }
 
-    private void initializeSound() {
-    }
-
+    // MODIFIES: this
+    // EFFECTS: initialize graphics
     private void initializeGraphics() {
         setLocation(700, 400);
         contentPane.setLayout(layout);
@@ -54,6 +64,20 @@ public class RemoveFrame extends JFrame {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize sound
+    private void initializeSound() {
+        sound = new SoundEffect();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize interaction
+    private void initializeInteraction() {
+        confirmButton.addActionListener(new ConfirmClickHandler());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set the location of confirm button on layout
     private void setConfirmButton() {
         contentPane.add(confirmButton);
 
@@ -65,6 +89,8 @@ public class RemoveFrame extends JFrame {
                 SpringLayout.SOUTH, labelName);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the location of name tool on layout
     private void setNameLayout() {
         contentPane.add(labelName);
         contentPane.add(textFieldName);
@@ -83,35 +109,23 @@ public class RemoveFrame extends JFrame {
                 SpringLayout.NORTH, contentPane);
     }
 
-    private void initializeFields() {
-        layout = new SpringLayout();
-        contentPane = this.getContentPane();
-
-        labelName = new JLabel("Remove food:");
-
-        textFieldName = new JTextField(16);
-
-        confirmButton = new JButton("Confirm");
-    }
-
+    // Represent a click handler for confirm button
     private class ConfirmClickHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = textFieldName.getText();
-            SoundEffect sound = new SoundEffect();
 
             boolean isNameExist = foodStorage.findFoodByName(name);
 
             if (isNameExist) {
                 foodStorage.removeFood(foodStorage.getFoundFood());
                 sound.getSoundSuccess().play();
-                setVisible(false);
             } else {
                 System.out.println("The food is not found, check the name again");
                 sound.getSoundFail().play();
-                setVisible(false);
             }
+            setVisible(false);
         }
     }
 }

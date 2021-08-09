@@ -31,6 +31,10 @@ public class StoreFrame extends JFrame {
 
     private JButton confirmButton;
 
+    private SoundEffect sound;
+
+    // MODIFIES: this
+    // EFFECTS: create a store frame with fields and graphics initialized
     public StoreFrame(String name, FoodStorage foodStorage) {
         super(name);
         this.foodStorage = foodStorage;
@@ -40,13 +44,27 @@ public class StoreFrame extends JFrame {
         initializeInteraction();
     }
 
-    private void initializeInteraction() {
-        confirmButton.addActionListener(new ConfirmClickHandler());
+    // MODIFIES: this
+    // EFFECTS: initialize fields
+    private void initializeFields() {
+        layout = new SpringLayout();
+        contentPane = this.getContentPane();
+
+        labelName = new JLabel("Name:");
+        labelPrice = new JLabel("Price:");
+        labelStorageCond = new JLabel("Storage Condition:");
+        labelDaysLeft = new JLabel("Days Left:");
+
+        textFieldName = new JTextField(16);
+        textFieldPrice = new JTextField(16);
+        textFieldStorageCond = new JTextField(16);
+        textFieldDaysLeft = new JTextField(16);
+
+        confirmButton = new JButton("Confirm");
     }
 
-    private void initializeSound() {
-    }
-
+    // MODIFIES: this
+    // EFFECTS: initialize graphics
     private void initializeGraphics() {
         setLocation(700, 400);
         contentPane.setLayout(layout);
@@ -64,6 +82,20 @@ public class StoreFrame extends JFrame {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize sound
+    private void initializeSound() {
+        sound = new SoundEffect();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize interaction of the buttons
+    private void initializeInteraction() {
+        confirmButton.addActionListener(new ConfirmClickHandler());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set the location of confirm button on layout
     private void setConfirmButton() {
         contentPane.add(confirmButton);
 
@@ -75,6 +107,8 @@ public class StoreFrame extends JFrame {
                 SpringLayout.SOUTH, labelDaysLeft);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the location of days left tool on layout
     private void setDaysLeftLayout() {
         contentPane.add(labelDaysLeft);
         contentPane.add(textFieldDaysLeft);
@@ -93,6 +127,8 @@ public class StoreFrame extends JFrame {
                 SpringLayout.SOUTH, textFieldStorageCond);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the location of storage condition tool on layout
     private void setStorageCondLayout() {
         contentPane.add(labelStorageCond);
         contentPane.add(textFieldStorageCond);
@@ -111,6 +147,8 @@ public class StoreFrame extends JFrame {
                 SpringLayout.SOUTH, textFieldPrice);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the location of price tool on layout
     private void setPriceLayout() {
         contentPane.add(labelPrice);
         contentPane.add(textFieldPrice);
@@ -129,6 +167,8 @@ public class StoreFrame extends JFrame {
                 SpringLayout.SOUTH, textFieldName);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the location of name tool on layout
     private void setNameLayout() {
         contentPane.add(labelName);
         contentPane.add(textFieldName);
@@ -147,23 +187,7 @@ public class StoreFrame extends JFrame {
                 SpringLayout.NORTH, contentPane);
     }
 
-    private void initializeFields() {
-        layout = new SpringLayout();
-        contentPane = this.getContentPane();
-
-        labelName = new JLabel("Name:");
-        labelPrice = new JLabel("Price:");
-        labelStorageCond = new JLabel("Storage Condition:");
-        labelDaysLeft = new JLabel("Days Left:");
-
-        textFieldName = new JTextField(16);
-        textFieldPrice = new JTextField(16);
-        textFieldStorageCond = new JTextField(16);
-        textFieldDaysLeft = new JTextField(16);
-
-        confirmButton = new JButton("Confirm");
-    }
-
+    // Represent a click handler for confirm button
     private class ConfirmClickHandler implements ActionListener {
 
         @Override
@@ -174,10 +198,16 @@ public class StoreFrame extends JFrame {
             int daysLeft = Integer.parseInt(textFieldDaysLeft.getText());
 
             doStore(name, price, storageCond, daysLeft);
+
+            textFieldName.setText("");
+            textFieldPrice.setText("");
+            textFieldStorageCond.setText("");
+            textFieldDaysLeft.setText("");
         }
 
+        // MODIFIES: this
+        // EFFECTS: store the given food to storage
         private void doStore(String name, Double price, String storageCond, int daysLeft) {
-            SoundEffect sound = new SoundEffect();
 
             if (price < 0 || daysLeft < 0) {
                 System.out.println("Failed: Both of price and number of days cannot be negative");

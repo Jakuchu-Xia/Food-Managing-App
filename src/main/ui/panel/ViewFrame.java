@@ -1,7 +1,6 @@
 package ui.panel;
 
 import model.FoodStorage;
-import ui.tools.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +18,8 @@ public class ViewFrame extends JFrame {
     private JEditorPane editorPane;
     private JScrollPane scroll;
 
+    // MODIFIES: this
+    // EFFECTS: create a view frame with fields and graphics initialized
     public ViewFrame(String name, FoodStorage foodStorage) {
         super(name);
         initializeFields();
@@ -26,12 +27,16 @@ public class ViewFrame extends JFrame {
         this.foodStorage = foodStorage;
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize fields
     private void initializeFields() {
         label = new JLabel("Stored food:");
         editorPane = new JEditorPane();
         scroll = new JScrollPane(editorPane);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialize graphics
     private void initializeGraphics() {
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -41,13 +46,15 @@ public class ViewFrame extends JFrame {
         editorPane.setEditable(false);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        createTools();
+        createButtonArea();
 
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    private void createTools() {
+    // MODIFIES: this
+    // EFFECTS: create an area for buttons
+    private void createButtonArea() {
         JPanel toolArea = new JPanel();
         toolArea.setLayout(new BorderLayout(0,1));
         toolArea.setSize(new Dimension(WIDTH, 100));
@@ -56,12 +63,15 @@ public class ViewFrame extends JFrame {
         createViewAllButton(toolArea);
     }
 
+    // MODIFIES: this
+    // EFFECTS: create a view all button
     private void createViewAllButton(JComponent parent) {
         JButton button = new JButton("View All");
         parent.add(button);
         button.addActionListener(new ViewAllToolClickHandler());
     }
 
+    // Represent a click handler for view all button
     private class ViewAllToolClickHandler implements ActionListener {
 
         @Override
@@ -69,12 +79,16 @@ public class ViewFrame extends JFrame {
             editorPane.setText(text());
         }
 
+        // MODIFIES: this
+        // EFFECTS: print list of all food in editorPane
         public String text() {
             StringBuilder text = new StringBuilder();
             for (String f : foodStorage.displayAllFood()) {
-                text.append(f + "\n");
+                text.append(f).append("\n");
             }
             return text.toString();
         }
+
+
     }
 }
