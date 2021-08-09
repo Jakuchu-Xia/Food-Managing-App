@@ -1,9 +1,9 @@
 package ui.panel;
 
+import model.Food;
 import model.FoodStorage;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.Main;
 import ui.SoundEffect;
 
 import javax.swing.*;
@@ -76,6 +76,7 @@ public class MainFrame extends JFrame {
         createMainButtons(buttonArea, "Store", new StoreToolClickHandler());
         createMainButtons(buttonArea, "Remove", new RemoveToolClickHandler());
         createMainButtons(buttonArea, "Save", new SaveToolClickHandler());
+        createMainButtons(buttonArea, "Load", new LoadToolClickHandler());
         createMainButtons(buttonArea, "Update", new UpdateToolClickHandler());
     }
 
@@ -131,8 +132,8 @@ public class MainFrame extends JFrame {
         }
     }
 
-    // Represent a click handler for update button
-    private class UpdateToolClickHandler implements ActionListener {
+    // Represent a click handler for load button
+    private class LoadToolClickHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -143,6 +144,19 @@ public class MainFrame extends JFrame {
             } catch (IOException ioe) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
             }
+        }
+    }
+
+    // Represent a click handler for update button
+    private class UpdateToolClickHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            for (Food f : foodStorage.getFoodList()) {
+                f.reduceDaysLeftByOne();
+            }
+            System.out.println("All food states have been updated");
+            sound.getSoundSuccess().play();
         }
     }
 }
