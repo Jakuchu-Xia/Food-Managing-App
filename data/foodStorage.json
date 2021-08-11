@@ -1,14 +1,20 @@
 {"food list": [
     {
-        "price": 22,
-        "name": "22",
-        "storageCond": "22",
-        "daysLeft": 20
+        "price": 2.99,
+        "name": "apple",
+        "storageCond": "room temp",
+        "daysLeft": 11
     },
     {
-        "price": 11,
-        "name": "asd",
-        "storageCond": "11",
+        "price": 3,
+        "name": "pear",
+        "storageCond": "room temperature",
         "daysLeft": 9
+    },
+    {
+        "price": 4,
+        "name": "pizza",
+        "storageCond": "n/a",
+        "daysLeft": 3
     }
 ]}

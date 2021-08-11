@@ -3,10 +3,15 @@ package ui.panel;
 import model.Food;
 import model.FoodStorage;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLOutput;
 
 public class SearchFrame extends JFrame {
 
@@ -19,6 +24,8 @@ public class SearchFrame extends JFrame {
     private JButton searchButton;
     private JEditorPane editorPane;
     private JScrollPane scroll;
+
+//    private Image image;
 
     // MODIFIES: this
     // EFFECTS: create and initialize a search frame
@@ -37,6 +44,13 @@ public class SearchFrame extends JFrame {
         searchButton = new JButton("Search");
         editorPane = new JEditorPane();
         scroll = new JScrollPane(editorPane);
+
+//        try {
+//            image = ImageIO.read(new File("./data/tobs.jpg"))
+//                    .getScaledInstance(200, 200, Image.SCALE_DEFAULT);;
+//        } catch (IOException ex) {
+//            System.out.println("Cannot find path");
+//        }
     }
 
     // MODIFIES: this
@@ -50,6 +64,7 @@ public class SearchFrame extends JFrame {
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         createSearchArea();
+//        createImageArea();
 
         setLocationRelativeTo(null);
         setVisible(true);
@@ -72,6 +87,12 @@ public class SearchFrame extends JFrame {
 
         add(searchArea, BorderLayout.NORTH);
     }
+
+//    private void createImageArea() {
+//        JLabel imageLabel = new JLabel(new ImageIcon(image));
+//        imageLabel.setSize(50, 50);
+//        add(imageLabel, BorderLayout.SOUTH);
+//    }
 
     // Represent a click handler for search button
     private class SearchClickHandler implements ActionListener {
