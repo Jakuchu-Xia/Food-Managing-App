@@ -4,6 +4,8 @@ package ui;
 import model.Food;
 import model.FoodStorage;
 import model.Unit;
+import model.exceptions.NegativeAmountException;
+import model.exceptions.UnitMismatchException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -176,7 +178,11 @@ public class FoodManagerApp {
         boolean isNameExist = storage.findFoodByName(name);
 
         if (isNameExist) {
-            storage.reduceFoodByAmount(storage.getFoundFood(), amount, unit);
+            try {
+                storage.reduceFoodByAmount(storage.getFoundFood(), amount, unit);
+            } catch (NegativeAmountException | UnitMismatchException e) {
+                e.printStackTrace();
+            }
         } else {
             System.out.println("The food is not found, check the name again");
         }

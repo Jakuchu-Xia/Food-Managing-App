@@ -16,7 +16,7 @@ public class StoreFrame extends JFrame {
     public static final int WIDTH = 500;
     public static final int HEIGHT = 230;
 
-    String[] unitEnum = Unit.getNames(Unit.class);
+    String[] unitEnum = Unit.getList();
 
     private FoodStorage foodStorage;
 

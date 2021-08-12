@@ -78,7 +78,7 @@ public class Food implements Writable {
         double newAmount = this.amount - convertedAmount;
         if (newAmount >= 0) {
             this.amount = newAmount;
-        } else if (newAmount < 0) {
+        } else {
             throw new NegativeAmountException("Amount cannot be negative!");
         }
     }

@@ -1,6 +1,7 @@
 package model;
 
 import model.exceptions.NegativeAmountException;
+import model.exceptions.UnitMismatchException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,17 +31,50 @@ class FoodStorageTest {
     @Test
     public void testRemoveFoodByAmountPartial() {
         storage.storeFood(food);
-        storage.reduceFoodByAmount(food, 10, Unit.NONE);
 
-        assertEquals(13, storage.position(1).getAmount());
+        try {
+            storage.reduceFoodByAmount(food, 10, Unit.NONE);
+            assertEquals(13, storage.position(1).getAmount());
+        } catch (NegativeAmountException | UnitMismatchException e) {
+            fail();
+        }
     }
 
     @Test
     public void testRemoveFoodByAmountAll() {
         storage.storeFood(food);
-        storage.reduceFoodByAmount(food, 23, Unit.NONE);
+        try {
+            storage.reduceFoodByAmount(food, 23, Unit.NONE);
+            assertEquals(0, storage.totalAmount());
+        } catch (NegativeAmountException | UnitMismatchException e) {
+            fail();
+        }
+    }
 
-        assertEquals(0, storage.totalAmount());
+    @Test
+    public void testRemoveFoodByNegativeAmount() {
+        storage.storeFood(food);
+
+        try {
+            storage.reduceFoodByAmount(food, 50, Unit.NONE);
+            fail();
+        } catch (NegativeAmountException e) {
+        } catch (UnitMismatchException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testRemoveFoodByAmountWrongUnit() {
+        storage.storeFood(food);
+
+        try {
+            storage.reduceFoodByAmount(food, 11, Unit.KG);
+            fail();
+        } catch (NegativeAmountException e) {
+            fail();
+        } catch (UnitMismatchException e) {
+        }
     }
 
     @Test

@@ -2,6 +2,8 @@ package ui.panel;
 
 import model.FoodStorage;
 import model.Unit;
+import model.exceptions.NegativeAmountException;
+import model.exceptions.UnitMismatchException;
 import ui.SoundEffect;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ public class RemoveFrame extends JFrame {
     public static final int WIDTH = 300;
     public static final int HEIGHT = 150;
 
-    String[] unitEnum = Unit.getNames(Unit.class);
+    String[] unitEnum = Unit.getList();
 
     private FoodStorage foodStorage;
 
@@ -156,7 +158,11 @@ public class RemoveFrame extends JFrame {
             if (isNameExist && !textFieldAmount.getText().isEmpty()) {
                 double amount = Double.parseDouble(textFieldAmount.getText());
                 Unit unit = Unit.parseUnit((String) Objects.requireNonNull(unitList.getSelectedItem()));
-                foodStorage.reduceFoodByAmount(foodStorage.getFoundFood(), amount, unit);
+                try {
+                    foodStorage.reduceFoodByAmount(foodStorage.getFoundFood(), amount, unit);
+                } catch (NegativeAmountException | UnitMismatchException negativeAmountException) {
+                    negativeAmountException.printStackTrace();
+                }
                 sound.getSoundSuccess().play();
             } else if (textFieldAmount.getText().isEmpty()) {
                 foodStorage.removeFood(foodStorage.getFoundFood());

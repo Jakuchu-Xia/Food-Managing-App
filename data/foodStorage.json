@@ -5,7 +5,7 @@
         "price": 132,
         "name": "pear",
         "storageCond": "na",
-        "daysLeft": 122
+        "daysLeft": 120
     },
     {
         "amount": 122877,
@@ -13,6 +13,14 @@
         "price": 12,
         "name": "rice",
         "storageCond": "room temp",
-        "daysLeft": 11
+        "daysLeft": 9
+    },
+    {
+        "amount": 12,
+        "unit": "L",
+        "price": 13,
+        "name": "apple",
+        "storageCond": "room temp",
+        "daysLeft": 123
     }
 ]}

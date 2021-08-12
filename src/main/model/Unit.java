@@ -6,6 +6,8 @@ import java.util.Arrays;
 public enum Unit {
     ML, L, G, KG, NONE;
 
+    private static String[] unitList = new String[]{"ML", "L", "G", "KG", "NONE"};
+
     // EFFECTS: convert the given string to unit
     public static Unit parseUnit(String string) {
         switch (string) {
@@ -38,7 +40,7 @@ public enum Unit {
     }
 
     // EFFECTS: return a list contains all the elements in this enum
-    public static String[] getNames(Class<? extends Enum<?>> e) {
-        return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
+    public static String[] getList() {
+        return unitList;
     }
 }
