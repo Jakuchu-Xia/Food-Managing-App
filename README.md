@@ -41,4 +41,19 @@ Then I designed two tests in FoodTest that catch the two exceptions.
 
 ## Phase 4: Task 3
 
-- 
+- To improve the cohesion, I could split each of the frame class into two classes,
+one class responsible for the graphic and another one responsible for the interaction. 
+  The reason for doing this is that generating graphic and interaction are two different functionalities.
+  To do this, 
+  - I could move the fields, and the methods related to these fields to a new class
+  - I could make the frame class call the new class to generate interactive components on the screen
+- To reduce coupling, 
+  I could move the field foodStorage and other similar methods among all the frame classes to a new super class.
+  The field foodStorage has been passing to all other frames when initializing them, 
+  which duplicated the code and made the code harder to understand.
+  To do this,
+  - I could create a new abstract class GeneralFrame extends JFrame, and make all other frames extend GeneralFrame
+  - I could create a protected field foodStorage
+
+
+
