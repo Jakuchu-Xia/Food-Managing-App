@@ -6,6 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UnitTest {
     @Test
+    public void testGetNames() {
+        assertEquals("ML", Unit.getList()[0]);
+        assertEquals("L", Unit.getList()[1]);
+        assertEquals("G", Unit.getList()[2]);
+        assertEquals("KG", Unit.getList()[3]);
+        assertEquals("NONE", Unit.getList()[4]);
+    }
+
+    @Test
     public void testParseUnit() {
         assertEquals(Unit.ML, Unit.parseUnit("ML"));
         assertEquals(Unit.L, Unit.parseUnit("L"));
