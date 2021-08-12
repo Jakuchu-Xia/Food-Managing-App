@@ -1,7 +1,7 @@
 package model;
 
-import model.exceptions.NegativeAmountException;
-import model.exceptions.UnitMismatchException;
+import exceptions.NegativeAmountException;
+import exceptions.UnitMismatchException;
 import org.json.JSONObject;
 import persistence.Writable;
 

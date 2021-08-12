@@ -4,8 +4,8 @@ package ui;
 import model.Food;
 import model.FoodStorage;
 import model.Unit;
-import model.exceptions.NegativeAmountException;
-import model.exceptions.UnitMismatchException;
+import exceptions.NegativeAmountException;
+import exceptions.UnitMismatchException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 

@@ -33,3 +33,12 @@ Users of the app can be people who are busy and don't have much of a food budget
 - As a user, I want to be able to save my food library to file. 
 - As a user, I want to be able to be able to load my food library from file.
 
+## Phase 4: Task 2
+
+Test and design Food class in model package that is robust.
+The reduceAmount method in Food class throws two exceptions to prevent the amount being negative or mismatched unit.
+Then I designed two tests in FoodTest that catch the two exceptions.
+
+## Phase 4: Task 3
+
+- 

@@ -2,8 +2,8 @@ package ui.panel;
 
 import model.FoodStorage;
 import model.Unit;
-import model.exceptions.NegativeAmountException;
-import model.exceptions.UnitMismatchException;
+import exceptions.NegativeAmountException;
+import exceptions.UnitMismatchException;
 import ui.SoundEffect;
 
 import javax.swing.*;
