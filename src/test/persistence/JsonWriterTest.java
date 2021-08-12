@@ -2,6 +2,7 @@ package persistence;
 
 import model.Food;
 import model.FoodStorage;
+import model.Unit;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -15,7 +16,6 @@ public class JsonWriterTest extends JsonTest{
     @Test
     void testWriterInvalidFile() {
         try {
-            FoodStorage fs = new FoodStorage();
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
@@ -45,8 +45,8 @@ public class JsonWriterTest extends JsonTest{
     void testWriterGeneralFoodStorage() {
         try {
             FoodStorage fs = new FoodStorage();
-            fs.storeFood(new Food("apple", 5, "roomtemp", 3));
-            fs.storeFood(new Food("pear", 3, "none", 1));
+            fs.storeFood(new Food("apple", 5, 23, Unit.NONE, "roomtemp", 3));
+            fs.storeFood(new Food("pear", 3, 12, Unit.KG, "none", 1));
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralFoodStorage.json");
             writer.open();
             writer.write(fs);
@@ -56,8 +56,8 @@ public class JsonWriterTest extends JsonTest{
             fs = reader.read();
             List<Food> foodList = fs.getFoodList();
             assertEquals(2, foodList.size());
-            checkFood("apple", 5, "roomtemp", 3, foodList.get(0));
-            checkFood("pear", 3, "none", 1, foodList.get(1));
+            checkFood("apple", 5, 23, Unit.NONE, "roomtemp", 3, foodList.get(0));
+            checkFood("pear", 3, 12000, Unit.G, "none", 1, foodList.get(1));
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");

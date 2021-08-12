@@ -1,5 +1,7 @@
 package model;
 
+import model.exceptions.NegativeAmountException;
+import model.exceptions.UnitMismatchException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -8,6 +10,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static model.Unit.convertAmount;
+
 // Represent an list of Food
 public class FoodStorage implements Writable {
     private LinkedList<Food> foodList;
@@ -15,7 +19,7 @@ public class FoodStorage implements Writable {
 
     // EFFECTS: construct a food storage as an empty storage
     public FoodStorage() {
-        foodList = new LinkedList<Food>();
+        foodList = new LinkedList<>();
     }
 
     // MODIFIES: this
@@ -25,14 +29,31 @@ public class FoodStorage implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: remove the given food from the storage
+    // EFFECTS: reduce the given food by given amount, remove it if amount is zero
+    public void reduceFoodByAmount(Food food, double amount, Unit unit) {
+        Food foodToReduce = foodList.get(foodList.indexOf(food));
+        double convertedAmount = convertAmount(amount, unit);
+
+        try {
+            if (food.getAmount() - convertedAmount == 0) {
+                removeFood(food);
+            } else {
+                foodToReduce.reduceAmount(amount, unit);
+            }
+        } catch (NegativeAmountException | UnitMismatchException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: remove the given food
     public void removeFood(Food food) {
         foodList.remove(food);
     }
 
     // EFFECTS: return the list of name of all the food
     public List<String> displayAllFood() {
-        ArrayList<String> displayFoodList = new ArrayList<String>();
+        ArrayList<String> displayFoodList = new ArrayList<>();
 
         for (Food f : this.foodList) {
             displayFoodList.add(f.getName());
@@ -44,7 +65,7 @@ public class FoodStorage implements Writable {
     // REQUIRES: days >= 0
     // EFFECTS: return the list of name of all the food by given days left
     public List<String> displayFoodByDaysLeft(int days) {
-        ArrayList<String> displayFoodList = new ArrayList<String>();
+        ArrayList<String> displayFoodList = new ArrayList<>();
 
         for (Food f: this.foodList) {
             if (f.getDaysLeft() == days) {

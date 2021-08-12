@@ -2,17 +2,21 @@ package ui.panel;
 
 import model.Food;
 import model.FoodStorage;
+import model.Unit;
 import ui.SoundEffect;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class StoreFrame extends JFrame {
 
     public static final int WIDTH = 500;
-    public static final int HEIGHT = 200;
+    public static final int HEIGHT = 230;
+
+    String[] unitEnum = Unit.getNames(Unit.class);
 
     private FoodStorage foodStorage;
 
@@ -23,11 +27,15 @@ public class StoreFrame extends JFrame {
     private JLabel labelPrice;
     private JLabel labelStorageCond;
     private JLabel labelDaysLeft;
+    private JLabel labelAmount;
 
     private JTextField textFieldName;
     private JTextField textFieldPrice;
     private JTextField textFieldStorageCond;
     private JTextField textFieldDaysLeft;
+    private JTextField textFieldAmount;
+
+    private JComboBox unitList;
 
     private JButton confirmButton;
 
@@ -54,11 +62,15 @@ public class StoreFrame extends JFrame {
         labelPrice = new JLabel("Price:");
         labelStorageCond = new JLabel("Storage Condition:");
         labelDaysLeft = new JLabel("Days Left:");
+        labelAmount = new JLabel("Amount:");
 
         textFieldName = new JTextField(16);
         textFieldPrice = new JTextField(16);
         textFieldStorageCond = new JTextField(16);
         textFieldDaysLeft = new JTextField(16);
+        textFieldAmount = new JTextField(16);
+
+        unitList = new JComboBox(unitEnum);
 
         confirmButton = new JButton("Confirm");
     }
@@ -76,6 +88,7 @@ public class StoreFrame extends JFrame {
         setPriceLayout();
         setStorageCondLayout();
         setDaysLeftLayout();
+        setAmountLayout();
         setConfirmButton();
 
         pack();
@@ -103,8 +116,35 @@ public class StoreFrame extends JFrame {
                 WIDTH / 2,
                 SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, confirmButton,
+                20,
+                SpringLayout.SOUTH, labelAmount);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set the location of amount tool on layout
+    private void setAmountLayout() {
+        contentPane.add(labelAmount);
+        contentPane.add(textFieldAmount);
+        contentPane.add(unitList);
+
+        layout.putConstraint(SpringLayout.WEST, labelAmount,
                 5,
+                SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, labelAmount,
+                10,
                 SpringLayout.SOUTH, labelDaysLeft);
+        layout.putConstraint(SpringLayout.WEST, textFieldAmount,
+                5,
+                SpringLayout.EAST, labelAmount);
+        layout.putConstraint(SpringLayout.NORTH, textFieldAmount,
+                5,
+                SpringLayout.SOUTH, textFieldDaysLeft);
+        layout.putConstraint(SpringLayout.WEST, unitList,
+                5,
+                SpringLayout.EAST, textFieldAmount);
+        layout.putConstraint(SpringLayout.NORTH, unitList,
+                5,
+                SpringLayout.SOUTH, textFieldDaysLeft);
     }
 
     // MODIFIES: this
@@ -196,24 +236,27 @@ public class StoreFrame extends JFrame {
             double price = Double.parseDouble(textFieldPrice.getText());
             String storageCond = textFieldStorageCond.getText();
             int daysLeft = Integer.parseInt(textFieldDaysLeft.getText());
-
-            doStore(name, price, storageCond, daysLeft);
+            double amount = Double.parseDouble(textFieldAmount.getText());
+            Unit unit = Unit.parseUnit((String) Objects.requireNonNull(unitList.getSelectedItem()));
+            doStore(name, price, amount, unit, storageCond, daysLeft);
 
             textFieldName.setText("");
             textFieldPrice.setText("");
             textFieldStorageCond.setText("");
             textFieldDaysLeft.setText("");
+            textFieldAmount.setText("");
+            unitList.setSelectedItem(0);
         }
 
         // MODIFIES: this
         // EFFECTS: store the given food to storage
-        private void doStore(String name, Double price, String storageCond, int daysLeft) {
+        private void doStore(String name, double price, double amount, Unit unit, String storageCond, int daysLeft) {
 
             if (price < 0 || daysLeft < 0) {
                 System.out.println("Failed: Both of price and number of days cannot be negative");
                 sound.getSoundFail().play();
             } else {
-                Food food = new Food(name, price, storageCond, daysLeft);
+                Food food = new Food(name, price, amount, unit, storageCond, daysLeft);
                 foodStorage.storeFood(food);
                 System.out.println("The food has been successfully stored");
                 sound.getSoundSuccess().play();

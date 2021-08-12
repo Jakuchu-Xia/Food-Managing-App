@@ -3,12 +3,16 @@
     "price": 5,
     "name": "apple",
     "storageCond": "roomtemp",
-    "daysLeft": 3
+    "daysLeft": 3,
+    "amount": 23,
+    "unit": ""
   },
   {
     "price": 3,
     "name": "pear",
     "storageCond": "none",
-    "daysLeft": 1
+    "daysLeft": 1,
+    "amount": 12000,
+    "unit": "G"
   }
 ]}

@@ -1,17 +1,21 @@
 package ui.panel;
 
 import model.FoodStorage;
+import model.Unit;
 import ui.SoundEffect;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class RemoveFrame extends JFrame {
 
     public static final int WIDTH = 300;
-    public static final int HEIGHT = 100;
+    public static final int HEIGHT = 150;
+
+    String[] unitEnum = Unit.getNames(Unit.class);
 
     private FoodStorage foodStorage;
 
@@ -19,7 +23,10 @@ public class RemoveFrame extends JFrame {
     private Container contentPane;
 
     private JLabel labelName;
+    private JLabel labelAmount;
     private JTextField textFieldName;
+    private JTextField textFieldAmount;
+    private JComboBox unitList;
     private JButton confirmButton;
 
     private SoundEffect sound;
@@ -41,7 +48,11 @@ public class RemoveFrame extends JFrame {
         layout = new SpringLayout();
         contentPane = this.getContentPane();
         labelName = new JLabel("Remove food:");
+        labelAmount = new JLabel("By amount of");
         textFieldName = new JTextField(16);
+        textFieldAmount = new JTextField(10);
+        unitList = new JComboBox(unitEnum);
+        unitList.setSelectedIndex(unitEnum.length - 1);
         confirmButton = new JButton("Confirm");
     }
 
@@ -55,6 +66,7 @@ public class RemoveFrame extends JFrame {
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
 
         setNameLayout();
+        setAmountLayout();
         setConfirmButton();
 
         pack();
@@ -82,8 +94,8 @@ public class RemoveFrame extends JFrame {
                 WIDTH / 2,
                 SpringLayout.WEST, contentPane);
         layout.putConstraint(SpringLayout.NORTH, confirmButton,
-                5,
-                SpringLayout.SOUTH, labelName);
+                15,
+                SpringLayout.SOUTH, labelAmount);
     }
 
     // MODIFIES: this
@@ -106,16 +118,47 @@ public class RemoveFrame extends JFrame {
                 SpringLayout.NORTH, contentPane);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set the location of amount tool on layout
+    private void setAmountLayout() {
+        contentPane.add(labelAmount);
+        contentPane.add(textFieldAmount);
+        contentPane.add(unitList);
+
+        layout.putConstraint(SpringLayout.WEST, labelAmount,
+                5,
+                SpringLayout.WEST, contentPane);
+        layout.putConstraint(SpringLayout.NORTH, labelAmount,
+                5,
+                SpringLayout.SOUTH, labelName);
+        layout.putConstraint(SpringLayout.WEST, textFieldAmount,
+                5,
+                SpringLayout.EAST, labelAmount);
+        layout.putConstraint(SpringLayout.NORTH, textFieldAmount,
+                5,
+                SpringLayout.SOUTH, textFieldName);
+        layout.putConstraint(SpringLayout.WEST, unitList,
+                5,
+                SpringLayout.EAST, textFieldAmount);
+        layout.putConstraint(SpringLayout.NORTH, unitList,
+                5,
+                SpringLayout.SOUTH, textFieldName);
+    }
+
     // Represent a click handler for confirm button
     private class ConfirmClickHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = textFieldName.getText();
-
             boolean isNameExist = foodStorage.findFoodByName(name);
 
-            if (isNameExist) {
+            if (isNameExist && !textFieldAmount.getText().isEmpty()) {
+                double amount = Double.parseDouble(textFieldAmount.getText());
+                Unit unit = Unit.parseUnit((String) Objects.requireNonNull(unitList.getSelectedItem()));
+                foodStorage.reduceFoodByAmount(foodStorage.getFoundFood(), amount, unit);
+                sound.getSoundSuccess().play();
+            } else if (textFieldAmount.getText().isEmpty()) {
                 foodStorage.removeFood(foodStorage.getFoundFood());
                 sound.getSoundSuccess().play();
             } else {

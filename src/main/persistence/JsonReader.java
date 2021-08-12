@@ -2,6 +2,7 @@ package persistence;
 
 import model.Food;
 import model.FoodStorage;
+import model.Unit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -69,7 +70,9 @@ public class JsonReader {
         double price = jsonObject.getDouble("price");
         String storageCond = jsonObject.getString("storageCond");
         int daysLeft = jsonObject.getInt("daysLeft");
-        Food food = new Food(name, price, storageCond, daysLeft);
+        double amount = jsonObject.getDouble("amount");
+        String unit = jsonObject.getString("unit");
+        Food food = new Food(name, price, amount, Unit.parseUnit(unit), storageCond, daysLeft);
         fs.storeFood(food);
     }
 }

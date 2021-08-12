@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NegativeAmountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ class FoodStorageTest {
     @BeforeEach
     public void runBefore() {
         storage = new FoodStorage();
-        food = new Food("Apple", 2.99, "room temperature", 1);
+        food = new Food("Apple", 2.99, 23, Unit.NONE, "room_temperature", 1);
     }
 
     @Test
@@ -24,6 +25,22 @@ class FoodStorageTest {
 
         assertEquals(1, storage.totalAmount());
         assertEquals(food, storage.position(1));
+    }
+
+    @Test
+    public void testRemoveFoodByAmountPartial() {
+        storage.storeFood(food);
+        storage.reduceFoodByAmount(food, 10, Unit.NONE);
+
+        assertEquals(13, storage.position(1).getAmount());
+    }
+
+    @Test
+    public void testRemoveFoodByAmountAll() {
+        storage.storeFood(food);
+        storage.reduceFoodByAmount(food, 23, Unit.NONE);
+
+        assertEquals(0, storage.totalAmount());
     }
 
     @Test
@@ -36,8 +53,8 @@ class FoodStorageTest {
 
     @Test
     public void testDisplayAllFood() {
-        Food food2 = new Food("Broccoli", 1.99, "refrigerated", 0);
-        ArrayList<String> foodList = new ArrayList<String>();
+        Food food2 = new Food("Broccoli", 1.99, 23, Unit.NONE, "refrigerated", 0);
+        ArrayList<String> foodList = new ArrayList<>();
 
         storage.storeFood(food);
         storage.storeFood(food2);
@@ -49,8 +66,8 @@ class FoodStorageTest {
 
     @Test
     public void testDisplayFoodByDaysLeft() {
-        Food food2 = new Food("Broccoli", 1.99, "refrigerated", 0);
-        ArrayList<String> foodList = new ArrayList<String>();
+        Food food2 = new Food("Broccoli", 1.99, 23, Unit.NONE, "refrigerated", 0);
+        ArrayList<String> foodList = new ArrayList<>();
 
         storage.storeFood(food);
         storage.storeFood(food2);
@@ -61,7 +78,7 @@ class FoodStorageTest {
 
     @Test
     public void testGetTotalPrice() {
-        Food food2 = new Food("Broccoli", 1.99, "refrigerated", 0);
+        Food food2 = new Food("Broccoli", 1.99, 23, Unit.NONE, "refrigerated", 0);
 
         storage.storeFood(food);
         storage.storeFood(food2);
@@ -96,7 +113,7 @@ class FoodStorageTest {
         assertTrue(storage.findFoodByName("Apple"));
         assertEquals(food, storage.getFoundFood());
 
-        Food food2 = new Food("Broccoli", 1.99, "refrigerated", 0);
+        Food food2 = new Food("Broccoli", 1.99, 23, Unit.NONE, "refrigerated", 0);
         storage.storeFood(food2);
 
         assertTrue(storage.findFoodByName("Broccoli"));

@@ -1,20 +1,18 @@
 {"food list": [
     {
-        "price": 2.99,
-        "name": "apple",
+        "amount": 11588,
+        "unit": "G",
+        "price": 132,
+        "name": "pear",
+        "storageCond": "na",
+        "daysLeft": 122
+    },
+    {
+        "amount": 122877,
+        "unit": "ML",
+        "price": 12,
+        "name": "rice",
         "storageCond": "room temp",
         "daysLeft": 11
-    },
-    {
-        "price": 3,
-        "name": "pear",
-        "storageCond": "room temperature",
-        "daysLeft": 9
-    },
-    {
-        "price": 4,
-        "name": "pizza",
-        "storageCond": "n/a",
-        "daysLeft": 3
     }
 ]}

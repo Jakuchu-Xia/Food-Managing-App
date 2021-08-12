@@ -3,12 +3,12 @@ package ui;
 
 import model.Food;
 import model.FoodStorage;
+import model.Unit;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 // Food Manager application
@@ -143,6 +143,11 @@ public class FoodManagerApp {
         System.out.println("Food price?");
         double price = input.nextDouble();
 
+        System.out.println("Food amount?");
+        double amount = input.nextDouble();
+        Unit unit = Unit.parseUnit(input.next());
+
+
         System.out.println("Storage condition?");
         String storageCond = input.next();
 
@@ -152,7 +157,7 @@ public class FoodManagerApp {
         if (price < 0 || daysLeft < 0) {
             System.out.println("Failed: Both of price and number of days cannot be negative");
         } else {
-            Food food = new Food(name, price, storageCond, daysLeft);
+            Food food = new Food(name, price, amount, unit, storageCond, daysLeft);
             storage.storeFood(food);
             System.out.println("The food has been successfully stored");
         }
@@ -163,11 +168,15 @@ public class FoodManagerApp {
     private void doRemove() {
         System.out.println("Please enter the exact name of the food");
         String name = input.next();
+        System.out.println("Please enter the amount of the food");
+        double amount = input.nextDouble();
+        System.out.println("the unit?");
+        Unit unit = Unit.parseUnit(input.next());
 
         boolean isNameExist = storage.findFoodByName(name);
 
         if (isNameExist) {
-            storage.removeFood(storage.getFoundFood());
+            storage.reduceFoodByAmount(storage.getFoundFood(), amount, unit);
         } else {
             System.out.println("The food is not found, check the name again");
         }
