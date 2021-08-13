@@ -59,6 +59,7 @@ class FoodStorageTest {
             storage.reduceFoodByAmount(food, 50, Unit.NONE);
             fail();
         } catch (NegativeValueException e) {
+            // pass
         } catch (UnitMismatchException e) {
             fail();
         }
@@ -74,6 +75,7 @@ class FoodStorageTest {
         } catch (NegativeValueException e) {
             fail();
         } catch (UnitMismatchException e) {
+            // pass
         }
     }
 

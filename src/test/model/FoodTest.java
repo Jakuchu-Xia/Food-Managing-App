@@ -33,6 +33,7 @@ public class FoodTest {
             food.setPriceAndDaysLeft(-1, 2);
             fail();
         } catch (NegativeValueException e) {
+            // pass
         }
     }
 
@@ -42,6 +43,7 @@ public class FoodTest {
             food.setPriceAndDaysLeft(1, -2);
             fail();
         } catch (NegativeValueException e) {
+            // pass
         }
     }
 
