@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.NegativeAmountException;
+import exceptions.NegativeValueException;
 import exceptions.UnitMismatchException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,7 +31,7 @@ public class FoodStorage implements Writable {
     // MODIFIES: this
     // EFFECTS: reduce the given food by given amount, remove it if amount is zero
     public void reduceFoodByAmount(Food food, double amount, Unit unit)
-            throws NegativeAmountException, UnitMismatchException {
+            throws NegativeValueException, UnitMismatchException {
         Food foodToReduce = foodList.get(foodList.indexOf(food));
         double convertedAmount = convertAmount(amount, unit);
 

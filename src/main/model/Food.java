@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.NegativeAmountException;
+import exceptions.NegativeValueException;
 import exceptions.UnitMismatchException;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -18,15 +18,26 @@ public class Food implements Writable {
     private int daysLeft;
     private boolean isPassedExpDate = false;
 
-    // REQUIRES: price >= 0, daysLeft >= 0
     // EFFECTS: construct a food by given parameter
     public Food(String name, double price, double amount, Unit unit, String storageCond, int daysLeft) {
+        try {
+            setPriceAndDaysLeft(price, daysLeft);
+        } catch (NegativeValueException e) {
+            e.printStackTrace();
+        }
         this.name = name;
-        this.price = price;
         this.storageCond = storageCond;
-        this.daysLeft = daysLeft;
         this.unit = convertUnit(unit);
         this.amount = convertAmount(amount, unit);
+    }
+
+    // EFFECTS: set value for price and days left
+    public void setPriceAndDaysLeft(double price, int daysLeft) throws NegativeValueException {
+        if (price < 0 || daysLeft < 0) {
+            throw new NegativeValueException("Both price and days left cannot be negative!");
+        }
+        this.price = price;
+        this.daysLeft = daysLeft;
     }
 
     //EFFECTS: return name
@@ -66,7 +77,7 @@ public class Food implements Writable {
 
     // MODIFIES: this
     // EFFECTS: reduce the given amount of food by given unit
-    public void reduceAmount(double amount, Unit unit) throws NegativeAmountException, UnitMismatchException {
+    public void reduceAmount(double amount, Unit unit) throws NegativeValueException, UnitMismatchException {
         Unit convertedUnit = convertUnit(unit);
 
         if (convertedUnit != this.unit) {
@@ -79,7 +90,7 @@ public class Food implements Writable {
         if (newAmount >= 0) {
             this.amount = newAmount;
         } else {
-            throw new NegativeAmountException("Amount cannot be negative!");
+            throw new NegativeValueException("Amount cannot be negative!");
         }
     }
 

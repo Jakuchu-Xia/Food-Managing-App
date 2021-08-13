@@ -4,7 +4,7 @@ package ui;
 import model.Food;
 import model.FoodStorage;
 import model.Unit;
-import exceptions.NegativeAmountException;
+import exceptions.NegativeValueException;
 import exceptions.UnitMismatchException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -180,7 +180,7 @@ public class FoodManagerApp {
         if (isNameExist) {
             try {
                 storage.reduceFoodByAmount(storage.getFoundFood(), amount, unit);
-            } catch (NegativeAmountException | UnitMismatchException e) {
+            } catch (NegativeValueException | UnitMismatchException e) {
                 e.printStackTrace();
             }
         } else {

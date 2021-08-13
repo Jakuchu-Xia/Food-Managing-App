@@ -36,8 +36,9 @@ Users of the app can be people who are busy and don't have much of a food budget
 ## Phase 4: Task 2
 
 Test and design Food class in model package that is robust.
-The reduceAmount method in Food class throws two exceptions to prevent the amount being negative or mismatched unit.
-Then I designed two tests in FoodTest that catch the two exceptions.
+The setPriceAndDaysLeft method in Food class throws an exception to prevent the negative price or days left, 
+and the reduceAmount method in Food class throws two exceptions to prevent the amount being negative or mismatched unit.
+Then I designed four tests in FoodTest that catch these exceptions.
 
 ## Phase 4: Task 3
 
@@ -49,11 +50,11 @@ one class responsible for the graphic and another one responsible for the intera
   - I could make the frame class call the new class to generate interactive components on the screen
 - To reduce coupling, 
   I could move the field foodStorage and other similar methods among all the frame classes to a new super class.
-  The field foodStorage has been passing to all other frames when initializing them, 
-  which duplicated the code and made the code harder to understand.
+  The field foodStorage will be passed to all other frames when initializing them, 
+  which duplicated the codes and made the code harder to understand.
   To do this,
   - I could create a new abstract class GeneralFrame extends JFrame, and make all other frames extend GeneralFrame
-  - I could create a protected field foodStorage
+  - I could create a protected field foodStorage in GeneralFrame
 
 
 

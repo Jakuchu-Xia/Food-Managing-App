@@ -1,11 +1,12 @@
 package model;
 
-import exceptions.NegativeAmountException;
+import exceptions.NegativeValueException;
 import exceptions.UnitMismatchException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FoodTest {
     Food food;
@@ -13,6 +14,35 @@ public class FoodTest {
     @BeforeEach
     public void runBefore() {
         food = new Food("Apple", 2.99, 23, Unit.NONE, "room_temperature", 1);
+    }
+
+    @Test
+    public void testSetPriceAndDaysLeftPass() {
+        try {
+            food.setPriceAndDaysLeft(1, 2);
+            assertEquals(1, food.getPrice());
+            assertEquals(2, food.getDaysLeft());
+        } catch (NegativeValueException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testSetPriceAndDaysLeftNegativePrice() {
+        try {
+            food.setPriceAndDaysLeft(-1, 2);
+            fail();
+        } catch (NegativeValueException e) {
+        }
+    }
+
+    @Test
+    public void testSetPriceAndDaysLeftNegativeDaysLeft() {
+        try {
+            food.setPriceAndDaysLeft(1, -2);
+            fail();
+        } catch (NegativeValueException e) {
+        }
     }
 
     @Test
@@ -36,7 +66,7 @@ public class FoodTest {
             food.reduceAmount(22, Unit.NONE);
 
             assertEquals(1, food.getAmount());
-        } catch (NegativeAmountException | UnitMismatchException e) {
+        } catch (NegativeValueException | UnitMismatchException e) {
             fail();
         }
     }
@@ -47,7 +77,7 @@ public class FoodTest {
             food.reduceAmount(23, Unit.NONE);
 
             assertEquals(0, food.getAmount());
-        } catch (NegativeAmountException | UnitMismatchException e) {
+        } catch (NegativeValueException | UnitMismatchException e) {
             fail();
         }
     }
@@ -57,7 +87,7 @@ public class FoodTest {
         try {
             food.reduceAmount(24, Unit.NONE);
             fail();
-        } catch (NegativeAmountException ignored) {
+        } catch (NegativeValueException ignored) {
         } catch (UnitMismatchException e) {
             fail();
         }
@@ -68,7 +98,7 @@ public class FoodTest {
         try {
             food.reduceAmount(22, Unit.L);
             fail();
-        } catch (NegativeAmountException e) {
+        } catch (NegativeValueException e) {
             fail();
         } catch (UnitMismatchException ignored) {
         }

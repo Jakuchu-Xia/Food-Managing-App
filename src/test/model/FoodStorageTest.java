@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.NegativeAmountException;
+import exceptions.NegativeValueException;
 import exceptions.UnitMismatchException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ class FoodStorageTest {
         try {
             storage.reduceFoodByAmount(food, 10, Unit.NONE);
             assertEquals(13, storage.position(1).getAmount());
-        } catch (NegativeAmountException | UnitMismatchException e) {
+        } catch (NegativeValueException | UnitMismatchException e) {
             fail();
         }
     }
@@ -46,7 +46,7 @@ class FoodStorageTest {
         try {
             storage.reduceFoodByAmount(food, 23, Unit.NONE);
             assertEquals(0, storage.totalAmount());
-        } catch (NegativeAmountException | UnitMismatchException e) {
+        } catch (NegativeValueException | UnitMismatchException e) {
             fail();
         }
     }
@@ -58,7 +58,7 @@ class FoodStorageTest {
         try {
             storage.reduceFoodByAmount(food, 50, Unit.NONE);
             fail();
-        } catch (NegativeAmountException e) {
+        } catch (NegativeValueException e) {
         } catch (UnitMismatchException e) {
             fail();
         }
@@ -71,7 +71,7 @@ class FoodStorageTest {
         try {
             storage.reduceFoodByAmount(food, 11, Unit.KG);
             fail();
-        } catch (NegativeAmountException e) {
+        } catch (NegativeValueException e) {
             fail();
         } catch (UnitMismatchException e) {
         }

@@ -2,7 +2,7 @@ package ui.panel;
 
 import model.FoodStorage;
 import model.Unit;
-import exceptions.NegativeAmountException;
+import exceptions.NegativeValueException;
 import exceptions.UnitMismatchException;
 import ui.SoundEffect;
 
@@ -160,8 +160,8 @@ public class RemoveFrame extends JFrame {
                 Unit unit = Unit.parseUnit((String) Objects.requireNonNull(unitList.getSelectedItem()));
                 try {
                     foodStorage.reduceFoodByAmount(foodStorage.getFoundFood(), amount, unit);
-                } catch (NegativeAmountException | UnitMismatchException negativeAmountException) {
-                    negativeAmountException.printStackTrace();
+                } catch (NegativeValueException | UnitMismatchException negativeValueException) {
+                    negativeValueException.printStackTrace();
                 }
                 sound.getSoundSuccess().play();
             } else if (textFieldAmount.getText().isEmpty()) {
