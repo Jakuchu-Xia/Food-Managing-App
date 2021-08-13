@@ -158,11 +158,7 @@ public class RemoveFrame extends JFrame {
             if (isNameExist && !textFieldAmount.getText().isEmpty()) {
                 double amount = Double.parseDouble(textFieldAmount.getText());
                 Unit unit = Unit.parseUnit((String) Objects.requireNonNull(unitList.getSelectedItem()));
-                try {
-                    foodStorage.reduceFoodByAmount(foodStorage.getFoundFood(), amount, unit);
-                } catch (NegativeValueException | UnitMismatchException negativeValueException) {
-                    negativeValueException.printStackTrace();
-                }
+                foodStorage.reduceFoodByAmount(foodStorage.getFoundFood(), amount, unit);
                 sound.getSoundSuccess().play();
             } else if (textFieldAmount.getText().isEmpty()) {
                 foodStorage.removeFood(foodStorage.getFoundFood());

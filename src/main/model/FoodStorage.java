@@ -30,15 +30,18 @@ public class FoodStorage implements Writable {
 
     // MODIFIES: this
     // EFFECTS: reduce the given food by given amount, remove it if amount is zero
-    public void reduceFoodByAmount(Food food, double amount, Unit unit)
-            throws NegativeValueException, UnitMismatchException {
+    public void reduceFoodByAmount(Food food, double amount, Unit unit) {
         Food foodToReduce = foodList.get(foodList.indexOf(food));
         double convertedAmount = convertAmount(amount, unit);
 
         if (food.getAmount() - convertedAmount == 0) {
             removeFood(food);
         } else {
-            foodToReduce.reduceAmount(amount, unit);
+            try {
+                foodToReduce.reduceAmount(amount, unit);
+            } catch (NegativeValueException | UnitMismatchException e) {
+                e.printStackTrace();
+            }
         }
     }
 

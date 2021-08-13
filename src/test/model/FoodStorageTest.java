@@ -32,51 +32,15 @@ class FoodStorageTest {
     public void testRemoveFoodByAmountPartial() {
         storage.storeFood(food);
 
-        try {
-            storage.reduceFoodByAmount(food, 10, Unit.NONE);
-            assertEquals(13, storage.position(1).getAmount());
-        } catch (NegativeValueException | UnitMismatchException e) {
-            fail();
-        }
+        storage.reduceFoodByAmount(food, 10, Unit.NONE);
+        assertEquals(13, storage.position(1).getAmount());
     }
 
     @Test
     public void testRemoveFoodByAmountAll() {
         storage.storeFood(food);
-        try {
-            storage.reduceFoodByAmount(food, 23, Unit.NONE);
-            assertEquals(0, storage.totalAmount());
-        } catch (NegativeValueException | UnitMismatchException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testRemoveFoodByNegativeAmount() {
-        storage.storeFood(food);
-
-        try {
-            storage.reduceFoodByAmount(food, 50, Unit.NONE);
-            fail();
-        } catch (NegativeValueException e) {
-            // pass
-        } catch (UnitMismatchException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testRemoveFoodByAmountWrongUnit() {
-        storage.storeFood(food);
-
-        try {
-            storage.reduceFoodByAmount(food, 11, Unit.KG);
-            fail();
-        } catch (NegativeValueException e) {
-            fail();
-        } catch (UnitMismatchException e) {
-            // pass
-        }
+        storage.reduceFoodByAmount(food, 23, Unit.NONE);
+        assertEquals(0, storage.totalAmount());
     }
 
     @Test

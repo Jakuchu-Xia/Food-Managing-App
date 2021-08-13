@@ -19,7 +19,7 @@ public class FoodTest {
     @Test
     public void testSetPriceAndDaysLeftPass() {
         try {
-            food.setPriceAndDaysLeft(1, 2);
+            food.setPriceAndDaysLeft(1, 3,2);
             assertEquals(1, food.getPrice());
             assertEquals(2, food.getDaysLeft());
         } catch (NegativeValueException e) {
@@ -28,22 +28,13 @@ public class FoodTest {
     }
 
     @Test
-    public void testSetPriceAndDaysLeftNegativePrice() {
+    public void testSetPriceAndDaysLeftNegativeValue() {
         try {
-            food.setPriceAndDaysLeft(-1, 2);
+            food.setPriceAndDaysLeft(-1, 0, 2);
             fail();
         } catch (NegativeValueException e) {
-            // pass
-        }
-    }
-
-    @Test
-    public void testSetPriceAndDaysLeftNegativeDaysLeft() {
-        try {
-            food.setPriceAndDaysLeft(1, -2);
-            fail();
-        } catch (NegativeValueException e) {
-            // pass
+            assertEquals("All of price, amount and days left cannot be negative!",
+                    e.getMessage());
         }
     }
 
@@ -89,7 +80,9 @@ public class FoodTest {
         try {
             food.reduceAmount(24, Unit.NONE);
             fail();
-        } catch (NegativeValueException ignored) {
+        } catch (NegativeValueException e) {
+            assertEquals("Amount cannot be negative!",
+                    e.getMessage());
         } catch (UnitMismatchException e) {
             fail();
         }
@@ -102,7 +95,9 @@ public class FoodTest {
             fail();
         } catch (NegativeValueException e) {
             fail();
-        } catch (UnitMismatchException ignored) {
+        } catch (UnitMismatchException e) {
+            assertEquals("Unit not match!",
+                    e.getMessage());
         }
     }
 

@@ -21,22 +21,23 @@ public class Food implements Writable {
     // EFFECTS: construct a food by given parameter
     public Food(String name, double price, double amount, Unit unit, String storageCond, int daysLeft) {
         try {
-            setPriceAndDaysLeft(price, daysLeft);
+            setPriceAndDaysLeft(price, convertAmount(amount, unit), daysLeft);
         } catch (NegativeValueException e) {
             e.printStackTrace();
         }
         this.name = name;
         this.storageCond = storageCond;
         this.unit = convertUnit(unit);
-        this.amount = convertAmount(amount, unit);
     }
 
+    // MODIFIES: this
     // EFFECTS: set value for price and days left
-    public void setPriceAndDaysLeft(double price, int daysLeft) throws NegativeValueException {
-        if (price < 0 || daysLeft < 0) {
-            throw new NegativeValueException("Both price and days left cannot be negative!");
+    public void setPriceAndDaysLeft(double price, double amount, int daysLeft) throws NegativeValueException {
+        if (price < 0 || amount < 0 || daysLeft < 0) {
+            throw new NegativeValueException("All of price, amount and days left cannot be negative!");
         }
         this.price = price;
+        this.amount = amount;
         this.daysLeft = daysLeft;
     }
 

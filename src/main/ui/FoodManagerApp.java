@@ -178,11 +178,7 @@ public class FoodManagerApp {
         boolean isNameExist = storage.findFoodByName(name);
 
         if (isNameExist) {
-            try {
-                storage.reduceFoodByAmount(storage.getFoundFood(), amount, unit);
-            } catch (NegativeValueException | UnitMismatchException e) {
-                e.printStackTrace();
-            }
+            storage.reduceFoodByAmount(storage.getFoundFood(), amount, unit);
         } else {
             System.out.println("The food is not found, check the name again");
         }
